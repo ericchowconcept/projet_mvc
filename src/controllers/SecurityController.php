@@ -6,6 +6,7 @@
 
 class SecurityController
 {
+   
     public static function inscription()
     {
         if(!empty($_POST))
@@ -85,15 +86,42 @@ class SecurityController
                 header('location:' . BASE);
                 exit;
             }
-
-
-
-            
-
         }
         include(VIEWS . 'security/inscription.php');
     }
+    public static function login()
+    {
+        if(!empty($_POST))
+        {
+            $user = user::findByEmail(['email' => $_POST['email']]);
+            if($user)
+            {
+                if(password_verify($_POST['password'], $user['password']))
+                {
+                    $_SESSION['user'] = $user;
+                    $_SESSION['messages']['success'][] = "Bienvenue " . $user['pseudo'] . "!!";
+                    header('location:' . BASE);
+                    exit;
+                }
+                else
+                {
+                    $_SESSION['messages']['danger'][] = "Erreur sur le mot de passe";
+                }
+            }else
+            {
+                $_SESSION['messages']['danger'][] = "Aucun compte existant à cette adresse mail";
+            }
+        }
+        include(VIEWS . 'security/login.php');
+    }
+    public static function logout()
+    {
+        unset($_SESSION['user']);
 
+        $_SESSION['messages']['info'][] = "A bientôt !!";
+        header('location:' . BASE);
+        exit;
+    }
 }
 
 

@@ -43,8 +43,6 @@ $routes = [
     '/produit/supprimer' => ['AppController', 'supprimerProduit'],
     '/produit/vue' => ['AppController', 'vueProduit'],
     '/inscription' => ['SecurityController' , 'inscription'],
-    
-
-
-
+    '/login' =>['SecurityController', 'login'],
+    '/logout' =>['SecurityController', 'logout']
 ];

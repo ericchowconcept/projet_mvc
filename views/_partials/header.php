@@ -35,7 +35,9 @@
           </div>
         </li>
       </ul>
-      <a href="<?= BASE . 'inscription'; ?>" class="btn btn-outline-secondary">Inscription</a>
+      <a href="<?= BASE . 'inscription'; ?>" class="btn btn-outline-secondary me-3">Inscription</a>
+      <a href="<?= BASE . 'login'; ?>" class="btn btn-outline-primary me-3">Login</a>
+      <a href="<?= BASE . 'logout'; ?>" class="btn btn-warning">Déconnexion</a>
 
     </div>
   </div>
