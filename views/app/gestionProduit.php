@@ -3,7 +3,7 @@
 
 
 
-<h1 class="text-center">Gestion des produits</h1>
+<h1 class="text-center text-primary my-3">Gestion des produits</h1>
 
 <div class="container my-3">
     <table class="table table-dark table-striped">
@@ -51,7 +51,7 @@
                 <td><img src="<?= UPLOAD . $produit['image']; ?>" alt="" width="50px"></td>
                 <td><?= $produit['price']; ?>€</td>
                 <td>
-                    <a href="<?= BASE . 'produit/vue?id=' . $produit['id_product']; ?>" class="text-info"><i class="bi bi-eyeglasses"></i></a>
+                    <a href="<?= BASE . 'produit/vue?id=' . $produit['id_product']; ?>" class="text-info"><i class="bi bi-eye"></i></a>
 
                     <a href="<?= BASE . 'produit/modifier?id=' . $produit['id_product'] ; ?>" class="text-primary mx-3"><i class="bi bi-pencil-square"></i></a>
 

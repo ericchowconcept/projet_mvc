@@ -13,7 +13,7 @@ const CONFIG = [
     ],
     'app' => [
         'name' => 'Mon Projet',
-        'projectBaseUrl' => 'http://localhost/MVC'
+        'projectBaseUrl' => 'http://localhost/PROJET_MVC'
     ]
 ];
 
