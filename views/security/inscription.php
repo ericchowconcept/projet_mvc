@@ -33,13 +33,13 @@ echo '</pre>';
     </div>
     <div class="form-group col-12">
       <label for="password" class="form-label mt-4">Password</label>
-      <input type="password" class="form-control" id="password" placeholder="Enter your password">
+      <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
       <small class="text-danger"><?= $error['password'] ?? ""; ?></small>
 
     </div>
     <div class="form-group col-12">
       <label for="checkPwd" class="form-label mt-4">Verify password</label>
-      <input type="password" class="form-control" id="checkPwd" placeholder="Enter you password again">
+      <input type="password" class="form-control" name="checkPwd"  id="checkPwd" placeholder="Enter you password again">
       <small class="text-danger"><?= $error['checkPwd'] ?? ""; ?></small>
     </div>
    

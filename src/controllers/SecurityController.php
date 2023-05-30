@@ -53,12 +53,42 @@ class SecurityController
                 {
                     $error['email'] = "le champs email est obligatoire et l'adresse email doit être validé";
                 }
+                if(empty($_POST['password']) || !valid_pass($_POST['password'])) 
+                {
+                    $error['password'] = "le champs est obligatoire et votre mot de passe doit contenir: 
+                    <ul>
+                        <li>une majuscule</li>
+                        <li>minuscule</li>
+                        <li>un chiffre</li> 
+                        <li>un caractçre spécial</li> 
+                        <li>doit faire plus de 4 caractères</li>
+                    </ul>";
+                }
+                if(empty($_POST['checkPwd']) || $_POST['password'] !=$_POST['checkPwd'])
+                {
+                    $error['checkPwd'] = 'le champ est obligatoire et les mots de passe doivent concorder';
+                }
+            }
+            if(!$error)
+            {
+                $mdp = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                
+                User::ajouter([
+                    'f_name' => $_POST['f_name'],
+                    'l_name' => $_POST['l_name'],
+                    'pseudo' => $_POST['pseudo'],
+                    'email' => $_POST['email'],
+                    'password' => $mdp
+                ]);
+
+                $_SESSION['messages']['success'][] = "Félicitations, vous êtes à présent inscrit. Connectez-vous!!";
+                header('location:' . BASE);
+                exit;
             }
 
-            if(!error)
-            {
-                
-            }
+
+
+            
 
         }
         include(VIEWS . 'security/inscription.php');

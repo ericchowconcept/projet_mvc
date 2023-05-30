@@ -6,7 +6,7 @@ class User extends Db
     public static function ajouter(array $data)
     {
         $pdo = self::getDb();
-        $request = "INSERT INTO user (f_name, l_name, pseudo, password, verify_acc) VALUE (:f_name, :l_name, :pseudo, :password, 0)";
+        $request = "INSERT INTO user (f_name, l_name, pseudo, email, password, verify_acc) VALUES (:f_name, :l_name, :pseudo, :email, :password, 0)";
         $response = $pdo->prepare($request);
         $response->execute($data);
         return $pdo->lastInsertId();
