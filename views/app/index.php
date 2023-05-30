@@ -5,10 +5,10 @@
 // echo '<pre>';
 //     print_r($produits);
 // echo '</pre>';
-if(isset($_SESSION['user']))
-{
-    var_dump($_SESSION['user']);
-}
+// if(isset($_SESSION['user']))
+// {
+    // var_dump($_SESSION['user']);
+// }
 ?>
 <div class="container">
     <div class="row justify-content-evenly">
