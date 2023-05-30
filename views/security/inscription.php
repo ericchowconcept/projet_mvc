@@ -1,5 +1,12 @@
 <?php include(VIEWS . '_partials/header.php'); ?>
 
+<?php 
+echo '<pre>';
+    print_r($_POST);
+echo '</pre>';
+
+?>
+
 <h1 class="text-center text-primary my-3 ">Inscription</h1>
 <div class="container border border-primary rounded mt-4 ">
 <form method="post"  action="">
@@ -21,13 +28,9 @@
     </div>
     <div class="form-group col-md-6">
       <label for="email" class="form-label mt-4">Email address</label>
-      <input type="text" class="form-control" id="email" value="<?= $_POST['email']?? ''; ?>" placeholder="Enter email">
+      <input type="text" class="form-control" id="email" name="email" value="<?= $_POST['email']?? ''; ?>" placeholder="Enter email">
       <small class="text-danger"><?= $error['email'] ?? ""; ?></small>
     </div>
-
-
-    
-   
     <div class="form-group col-12">
       <label for="password" class="form-label mt-4">Password</label>
       <input type="password" class="form-control" id="password" placeholder="Enter your password">
