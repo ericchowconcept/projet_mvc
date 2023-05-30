@@ -42,6 +42,7 @@ $routes = [
     '/produit/modifier' => ['AppController', 'modifierProduit'],
     '/produit/supprimer' => ['AppController', 'supprimerProduit'],
     '/produit/vue' => ['AppController', 'vueProduit'],
+    '/inscription' => ['SecurityController' , 'inscription'],
     
 
 

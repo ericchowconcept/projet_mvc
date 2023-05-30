@@ -35,6 +35,7 @@
           </div>
         </li>
       </ul>
+      <a href="<?= BASE . 'inscription'; ?>" class="btn btn-outline-secondary">Inscription</a>
 
     </div>
   </div>
