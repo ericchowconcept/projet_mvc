@@ -44,5 +44,8 @@ $routes = [
     '/produit/vue' => ['AppController', 'vueProduit'],
     '/inscription' => ['SecurityController' , 'inscription'],
     '/login' =>['SecurityController', 'login'],
-    '/logout' =>['SecurityController', 'logout']
+    '/logout' =>['SecurityController', 'logout'],
+    '/user/gestion'=>['AdminController', 'gestionUser'],
+    '/user/supprimer'=>['AdminController','deleteUser'],
+   '/user/role' =>['AdminController', 'modifierRole']
 ];

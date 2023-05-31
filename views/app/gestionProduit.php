@@ -21,7 +21,7 @@
         <?php foreach($produits as $produit): ?>
 
 
-<div class="modal fade" role="dialogue" tabindex="-1"  aria-hidden= "true" id="modalSupprimer">
+<div class="modal fade" role="dialogue" tabindex="-1"  aria-hidden= "true" id="modalSupprimer<?= $produit['id_product']; ?>">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -40,10 +40,6 @@
     </div>
   </div>
 </div>
-
-
-
-
             <tr>
                 <td><?= $produit['id_product']; ?></td>
                 <td><?= $produit['name']; ?></td>
@@ -55,7 +51,7 @@
 
                     <a href="<?= BASE . 'produit/modifier?id=' . $produit['id_product'] ; ?>" class="text-primary mx-3"><i class="bi bi-pencil-square"></i></a>
 
-                    <a data-bs-toggle="modal" data-bs-target="#modalSupprimer" href="" class="text-danger"><i class="bi bi-trash3"></i></a>
+                    <a data-bs-toggle="modal" data-bs-target="#modalSupprimer<?= $produit['id_product']; ?>" href="" class="text-danger"><i class="bi bi-trash3"></i></a>
 
                 </td>
             </tr>

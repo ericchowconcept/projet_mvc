@@ -18,6 +18,32 @@ class User extends Db
         $response->execute($email);
         return $response->fetch(PDO::FETCH_ASSOC);
     }
+
+    public static function findAll()
+    {
+        $request="SELECT * FROM user";
+        $response = self::getDb()->prepare($request);
+        $response->execute();
+
+        return $response->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+   
+
+    public static function modifierRole(array $data)
+    {
+        $response = self::getDb()->prepare("UPDATE user SET role=:role WHERE id_user =:id_user");
+        return $response->execute($data);
+    }
+
+
+    public static function delete(array $id)
+    {
+        $request="DELETE FROM user WHERE id_user = :id_user";
+        $response = self::getDb()->prepare($request);
+        return $response->execute($id);
+    }
+
 }
 
 
