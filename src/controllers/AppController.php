@@ -12,6 +12,13 @@ class AppController
 
     public static function ajoutProduit()
     {
+        // *on vérifie que l'utilisateur n'est pas connecté mais n'est pas admin
+        if(!isset($_SESSION['user']) || $_SESSION['user']['role'] != "ROLE_ADMIN")
+        {
+            // *dans ce cas, on le renvoie à l'accueil
+            header('location:'. BASE);
+            exit;
+        }
         //*on vérifie que l'utilisateur a cliqué sur le bouton submit.
         if(!empty($_POST))
         {
@@ -72,12 +79,15 @@ class AppController
 
     public static function gestionProduit()
     {
+        Verif::admin();
         $produits = Product::findAll();
         include(VIEWS . 'app/gestionProduit.php');
     }
 
     public static function modifierProduit()
     {   
+        Verif::admin();
+
         //*ici on vérifier que notre GET['id'] n'est pas vide afin de récupérer notre produit
         if(!empty($_GET['id'])){
             //*je récupère mon produit grâce a son id
@@ -141,6 +151,8 @@ class AppController
 
     public static function supprimerProduit()
     {
+        Verif::admin();
+
         if(!empty($_GET['id']))
         {
             Product::delete([
@@ -155,6 +167,7 @@ class AppController
 
     public static function vueProduit()
     {
+
         if(isset($_GET['id']))
         {   
             //*techniquement $_GET['id'] est un string si on veut être rigoureux on convertit se string en integer dans notre tableau car l'id est un int

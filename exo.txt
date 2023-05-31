@@ -1,0 +1,4 @@
+Page de gestion
+
+id, nom, prenom, email de connexion, pseudo, role icon(modifier et supprimer) Option(admin/user)
+

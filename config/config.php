@@ -5,7 +5,7 @@
  */
 spl_autoload_register(function($class) {
 
-    foreach(['config/', 'src/controllers/', 'src/models/'] as $folder) {
+    foreach(['config/', 'src/controllers/', 'src/models/', 'src/service/'] as $folder) {
         $file = '../' . $folder . $class . '.php';
         if (file_exists( $file )) {
             require_once($file);

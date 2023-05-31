@@ -24,6 +24,7 @@
         <li class="nav-item">
           <a class="nav-link active" href="<?= BASE; ?>">Accueil</a>
         </li>
+        <?php if(isset($_SESSION['user']) && $_SESSION['user']['role'] == 'ROLE_ADMIN') : ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">BACKEND</a>
           <div class="dropdown-menu">
@@ -34,11 +35,15 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </div>
         </li>
+        <?php endif; ?>
       </ul>
+      <!-- si l'utilisateur est connecté, affiche uniquement déconnexion -->
+      <?php if(!isset($_SESSION['user'])): ?>
       <a href="<?= BASE . 'inscription'; ?>" class="btn btn-outline-secondary me-3">Inscription</a>
       <a href="<?= BASE . 'login'; ?>" class="btn btn-outline-primary me-3">Login</a>
-      <a href="<?= BASE . 'logout'; ?>" class="btn btn-warning">Déconnexion</a>
-
+      <?php else:?>
+      <a href="<?= BASE . 'logout'; ?>" class="btn btn-warning me-3">Déconnexion</a>
+     <?php endif; ?>
     </div>
   </div>
 </nav>
