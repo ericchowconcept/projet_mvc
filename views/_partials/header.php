@@ -24,6 +24,9 @@
         <li class="nav-item">
           <a class="nav-link active" href="<?= BASE; ?>">Accueil</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?= BASE . 'cart/view'; ?>">Panier</a>
+        </li>
         <?php if(isset($_SESSION['user']) && $_SESSION['user']['role'] == 'ROLE_ADMIN') : ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">BACKEND</a>

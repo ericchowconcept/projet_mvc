@@ -178,4 +178,58 @@ class AppController
         }
         include(VIEWS . 'app/vueProduit.php');
     }
+    public static function addCart()
+    {
+       if(!empty($_GET['id']))
+       {
+            $id = $_GET['id'];
+            $panier = $_SESSION['panier'];
+        if(!empty($panier[$id]))
+        {
+            $panier[$id]++;
+        }
+       else{
+        $panier[$id] = 1;
+        }
+        $_SESSION['panier'] = $panier;
+        }
+
+        // if(empty($_SESSION['panier'][$id]))
+        // {
+        //     $_SESSION['panier'][$id] = 1;
+        // }else{
+        //     $_SESSION['panier'][$id]++;
+        // }
+
+
+
+        header('Location:' . BASE);
+        exit;
+    
+    }
+    public static function viewCart()
+    {
+        $detailPanier = [];
+
+        $totalPanier = 0;
+
+        if(isset($_SESSION['panier']))
+        {
+            $panier = $_SESSION['panier'];
+            foreach($panier as $id => $quantity)
+            {
+                $produit = Product::findById(["id_product" => $id]);
+                $detailPanier[] = [
+                    'produit' => $produit,
+                    'quantity' => $quantity,
+                    'total' => $produit['price'] * $quantity
+                ];
+                $totalPanier += $produit['price']*$quantity;
+            }
+        }
+    
+    
+     include(VIEWS."app/panier.php" ) ;
+    }
+
 }

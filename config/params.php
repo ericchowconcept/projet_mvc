@@ -47,5 +47,7 @@ $routes = [
     '/logout' =>['SecurityController', 'logout'],
     '/user/gestion'=>['AdminController', 'gestionUser'],
     '/user/supprimer'=>['AdminController','deleteUser'],
-   '/user/role' =>['AdminController', 'modifierRole']
+   '/user/role' =>['AdminController', 'modifierRole'],
+   '/cart/add' =>['AppController', 'addCart'],
+   '/cart/view' =>['AppController', 'viewCart'],
 ];

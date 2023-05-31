@@ -5,10 +5,11 @@
 // echo '<pre>';
 //     print_r($produits);
 // echo '</pre>';
-// if(isset($_SESSION['user']))
-// {
-    // var_dump($_SESSION['user']);
-// }
+ if(isset($_SESSION['panier']))
+ {echo '<pre>';
+    var_dump($_SESSION['panier']);
+echo '</pre>';
+ }
 ?>
 <div class="container">
     <div class="row justify-content-evenly">
@@ -21,6 +22,7 @@
             <p class="card-text"><?= $produit['description']; ?></p>
             <div class="text-center my-2">
                 <a href="<?= BASE . 'produit/vue?id=' . $produit['id_product']; ?>" class="btn btn-primary">Détails</a>
+                <a href="<?= BASE . 'cart/add?id=' . $produit['id_product']; ?>" class="mt-5"><button class="btn btn-danger">Ajouter au panier</button></a>
             </div>
         </div>
     </div>
