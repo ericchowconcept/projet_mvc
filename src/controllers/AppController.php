@@ -203,7 +203,7 @@ class AppController
 
 
 
-        header('Location:' . BASE);
+        header('Location:' . BASE . 'cart/view');
         exit;
     
     }

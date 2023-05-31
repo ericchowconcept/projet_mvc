@@ -8,16 +8,16 @@
     <h1 class="text-center text-primary my-3">Mon panier</h1>
      <div class="row d-flex align-items-center">
         <?php foreach($detailPanier as $cart): ?>
-            <div class="col-5">
+            <div class="col-2">
                 <img src="<?= UPLOAD . $cart['produit']['image']; ?>" alt="" width="100px">
             </div>
-            <div class="col-2">
+            <div class="col-5 text-center">
                 <h3><?= $cart['produit']['name']; ?></h3>
             </div>
             <div class="col-3 text-center">
                 <a href="" class="text-decoration-none">-</a>
                 <?= $cart['quantity']; ?>
-                <a href="" class="text-decoration-none">+</a>
+                <a href="<?= BASE . 'cart/add?id=' . $cart['produit']['id_product']; ?>" class="text-decoration-none">+</a>
             </div>
             <div class="col-1 text-end">
                 <?= $cart['total'] . "€"; ?>
