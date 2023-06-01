@@ -180,19 +180,45 @@ class AppController
     }
     public static function addCart()
     {
+    // *on verifie qu'on a bien id dans l'url de notre produit
        if(!empty($_GET['id']))
        {
+        // *répcupère ou créer la SESSION['panier] et on la sotck dans la variable $panier
             $id = $_GET['id'];
             $panier = $_SESSION['panier'];
+            // *si le panier était pas vide avec l'indice id
         if(!empty($panier[$id]))
         {
+            // *on incrémente la quantité pour cette id (la valeur id)
             $panier[$id]++;
         }
        else{
+        // *sinon on intitialise la quantité à 1 pour l'indice $id
         $panier[$id] = 1;
         }
+        // *on met à jour la SESSION['panier']
         $_SESSION['panier'] = $panier;
         }
+
+        // !ajout paramètre GET par Vincent pour ne pas diriger automatiquement dans le panier lorsqu'on ajoute un produit
+        // *vérifie qu'il y a le paramètre page en GET 
+        if(!empty($_GET['page']))
+       {
+        // *ici je stocke la variable $page la valeur de $_GET['page']
+        $page = $_GET['page'];
+        switch($page)
+        {
+            case 'accueil':
+                header('location:' . BASE );
+                exit;
+                break;
+            case 'panier':
+                header('location:' . BASE . 'cart/view');
+                exit;
+                break;
+        }
+       }
+        
 
         // if(empty($_SESSION['panier'][$id]))
         // {
@@ -203,9 +229,53 @@ class AppController
 
 
 
-        header('Location:' . BASE . 'cart/view');
+        header('Location:' . BASE);
         exit;
     
+    }
+
+    public static function substractCart()
+    {
+       if(!empty($_GET['id']))
+       {
+        $id = $_GET['id'];
+        $panier = $_SESSION['panier'];
+        // *on vérifie qu'il y ait une quantité pour le produit d'id $id et que sa quantité est supérieur à 1 (car si je fait 1-1 j'arrive à zéro, et donc je ne veux plus avoir l'élément dans mon panier)
+        if(!empty($panier[$id]) && $panier[$id] > 1)
+        {
+            $panier[$id] --;
+        }
+        else{
+            unset($panier[$id]);
+        }
+        $_SESSION['panier'] = $panier;
+
+       }
+
+       header('location:' . BASE . 'cart/view');
+       exit;
+    }
+
+    public static function removeCart()
+    { 
+        $panier = $_SESSION['panier'];
+
+       if(!empty($_GET['id']))
+       {
+            $id = $_GET['id'];
+            unset($panier[$id]);
+       }
+       $_SESSION['panier'] = $panier;
+
+       header('location:' . BASE . 'cart/view'); 
+    }
+
+
+    public static function deleteCart()
+    {
+        unset($_SESSION['panier']);
+        header('location:' . BASE . 'cart/view');
+        exit;
     }
     public static function viewCart()
     {
@@ -231,5 +301,6 @@ class AppController
     
      include(VIEWS."app/panier.php" ) ;
     }
+
 
 }

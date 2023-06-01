@@ -50,4 +50,7 @@ $routes = [
    '/user/role' =>['AdminController', 'modifierRole'],
    '/cart/add' =>['AppController', 'addCart'],
    '/cart/view' =>['AppController', 'viewCart'],
+   '/cart/substract' =>['AppController', 'substractCart'],
+   '/cart/remove' =>['AppController', 'removeCart'],
+   '/cart/delete' =>['AppController', 'deleteCart'],
 ];

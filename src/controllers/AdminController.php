@@ -2,6 +2,7 @@
 
 class AdminController
 {
+    // !version vincent - ajout,modifier et gestion produit ici au lieu de app controller
     public static function gestionUser()
     {
         $users = User::findAll();
@@ -44,3 +45,4 @@ class AdminController
 }
 
 ?>
+

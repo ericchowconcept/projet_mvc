@@ -15,21 +15,22 @@
                 <h3><?= $cart['produit']['name']; ?></h3>
             </div>
             <div class="col-3 text-center">
-                <a href="" class="text-decoration-none">-</a>
+                <a href="<?= BASE . 'cart/substract?id=' . $cart['produit']['id_product']; ?>" class="text-decoration-none">-</a>
                 <?= $cart['quantity']; ?>
-                <a href="<?= BASE . 'cart/add?id=' . $cart['produit']['id_product']; ?>" class="text-decoration-none">+</a>
+                <a href="<?= BASE . 'cart/add?page=panier&id=' . $cart['produit']['id_product']; ?>" class="text-decoration-none">+</a>
             </div>
             <div class="col-1 text-end">
                 <?= $cart['total'] . "€"; ?>
             </div>
             <div class="col-1 text-end">
-                <a href="" class="text-danger"><i class="bi bi-trash3"></i></a>
+                <a href="<?= BASE . 'cart/remove?id=' . $cart['produit']['id_product']; ?>" class="text-danger"><i class="bi bi-trash3"></i></a>
             </div>
             <div class="col-12 my-3"><hr></div>
        <?php endforeach; ?>     
      </div>  
      <h2 class="text-end"><?= $totalPanier; ?>€</h2> 
      <div class="text-end">
+        <a href="<?= BASE . 'cart/delete'; ?>" class="btn btn-warning">Supprimer panier</a>
         <a href="#" class="btn btn-primary">Valider</a>
      </div>
 </div>
