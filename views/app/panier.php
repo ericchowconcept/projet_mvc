@@ -31,7 +31,13 @@
      <h2 class="text-end"><?= $totalPanier; ?>€</h2> 
      <div class="text-end">
         <a href="<?= BASE . 'cart/delete'; ?>" class="btn btn-warning">Supprimer panier</a>
-        <a href="#" class="btn btn-primary">Valider</a>
+        <!-- Eric & Martial s'il est connecté, adresse facturation, sinon, login  -->
+        <?php if(isset($_SESSION['user'])): ?>
+        <a href="<?= BASE . 'commande/finaliser'; ?>" class="btn btn-primary">Valider</a>
+        <?php else: ;?>
+        <a href="<?= BASE . 'login'; ?>" class="btn btn-primary">Connectez-vous pour finaliser</a>
+        <?php endif; ?>
+
      </div>
 </div>
 <?php else: ?>

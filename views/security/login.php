@@ -16,6 +16,7 @@
             <small class="text-danger"><?= $error['password'] ?? ""; ?></small>
         </div>
         <button class="btn btn-primary my-4 w-100" type="submit">Se connecter</button>
+        <a href="<?= BASE . 'inscription'; ?>"class="text-center">Pas encore inscrit? Inscrivez vous</a>
 
     </form>
 </div>

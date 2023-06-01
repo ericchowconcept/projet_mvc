@@ -44,6 +44,13 @@ class User extends Db
         return $response->execute($id);
     }
 
+  
+
+    public static function addAddress(array $data)
+    {
+        $response = self::getDb()->prepare("UPDATE user SET delivery_address = :delivery_address, billing_address = :billing_address WHERE id_user = :id_user");
+        return $response->execute($data);
+    }
 }
 
 

@@ -4,13 +4,32 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 -s'identifier (inscription/connexion/deconnexion) -> une table
 -gestion du panier -> pas de table session
+
 -gestion des commandes -> 2 tables 
+
+-profile(voir/modifier)
 -historique des commandes-> pas de table en plus
--avis -> 1 table
--categorie -> 1 table
+créer une page pour user
+
+-avis -> 1 table - review
+
+
+-categorie -> 1 table - créer un CRUD complet
+plus de string dans categorie dans product, mais un int
+
+
+
+
+
 -mise en avant d'un produit -> 1 table 
 -------------------------------------------------------------
 
 -mailing(vérifier le compte /  )
 -stripe less go
 -vente flash
+
+
+Maxime
+Dianciré
+Benoit
+Martial

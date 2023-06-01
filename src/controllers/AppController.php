@@ -178,84 +178,7 @@ class AppController
         }
         include(VIEWS . 'app/vueProduit.php');
     }
-    public static function addCart()
-    {
-    // *on verifie qu'on a bien id dans l'url de notre produit
-       if(!empty($_GET['id']))
-       {
-        // *répcupère ou créer la SESSION['panier] et on la sotck dans la variable $panier
-            $id = $_GET['id'];
-            $panier = $_SESSION['panier'];
-            // *si le panier était pas vide avec l'indice id
-        if(!empty($panier[$id]))
-        {
-            // *on incrémente la quantité pour cette id (la valeur id)
-            $panier[$id]++;
-        }
-       else{
-        // *sinon on intitialise la quantité à 1 pour l'indice $id
-        $panier[$id] = 1;
-        }
-        // *on met à jour la SESSION['panier']
-        $_SESSION['panier'] = $panier;
-        }
-
-        // !ajout paramètre GET par Vincent pour ne pas diriger automatiquement dans le panier lorsqu'on ajoute un produit
-        // *vérifie qu'il y a le paramètre page en GET 
-        if(!empty($_GET['page']))
-       {
-        // *ici je stocke la variable $page la valeur de $_GET['page']
-        $page = $_GET['page'];
-        switch($page)
-        {
-            case 'accueil':
-                header('location:' . BASE );
-                exit;
-                break;
-            case 'panier':
-                header('location:' . BASE . 'cart/view');
-                exit;
-                break;
-        }
-       }
-        
-
-        // if(empty($_SESSION['panier'][$id]))
-        // {
-        //     $_SESSION['panier'][$id] = 1;
-        // }else{
-        //     $_SESSION['panier'][$id]++;
-        // }
-
-
-
-        header('Location:' . BASE);
-        exit;
-    
-    }
-
-    public static function substractCart()
-    {
-       if(!empty($_GET['id']))
-       {
-        $id = $_GET['id'];
-        $panier = $_SESSION['panier'];
-        // *on vérifie qu'il y ait une quantité pour le produit d'id $id et que sa quantité est supérieur à 1 (car si je fait 1-1 j'arrive à zéro, et donc je ne veux plus avoir l'élément dans mon panier)
-        if(!empty($panier[$id]) && $panier[$id] > 1)
-        {
-            $panier[$id] --;
-        }
-        else{
-            unset($panier[$id]);
-        }
-        $_SESSION['panier'] = $panier;
-
-       }
-
-       header('location:' . BASE . 'cart/view');
-       exit;
-    }
-
+   
     public static function removeCart()
     { 
         $panier = $_SESSION['panier'];
@@ -277,30 +200,150 @@ class AppController
         header('location:' . BASE . 'cart/view');
         exit;
     }
+    public static function addCart()
+    {
+       // on vérifie qu'on a bien l'id dans l'url de notre produit 
+       if(!empty($_GET['id']))
+       {   
+            Cart::add($_GET['id']);
+            // if(empty($_SESSION['panier'][$id]))
+            // {
+            //     $_SESSION['panier'][$id] = 1;
+            // }
+            // else
+            // {
+            //     $_SESSION['panier'][$id]++;
+            // }
+
+       }
+       //vérifie qu'il y a le paramètre page en GET
+       if(!empty($_GET['page']))
+       {
+        //je stock dans la variable $page la valeur de $_GET['page']
+        $page = $_GET['page'];
+
+        //en fonction de la valeur de $page on fait sa redirection
+        switch($page)
+        {
+            case 'accueil':
+                header('location:' . BASE );
+                exit;
+                break;
+            case 'panier':
+                header('location:' . BASE . 'cart/view');
+                exit;
+                break;
+        }
+       }
+      
+       
+        header('location:' . BASE );
+        exit;
+       
+       
+    
+    
+    }
+
     public static function viewCart()
     {
-        $detailPanier = [];
-
-        $totalPanier = 0;
-
-        if(isset($_SESSION['panier']))
-        {
-            $panier = $_SESSION['panier'];
-            foreach($panier as $id => $quantity)
-            {
-                $produit = Product::findById(["id_product" => $id]);
-                $detailPanier[] = [
-                    'produit' => $produit,
-                    'quantity' => $quantity,
-                    'total' => $produit['price'] * $quantity
-                ];
-                $totalPanier += $produit['price']*$quantity;
-            }
-        }
+    $detailPanier = Cart::getDetailPanier();
+    $totalPanier = Cart::getTotal();
+       
     
     
      include(VIEWS."app/panier.php" ) ;
+     
     }
 
+
+    public static function substractCart()
+    {
+       if(!empty($_GET['id']))
+       {    
+            Cart::substract($_GET['id']);
+
+       }
+
+       header('location:' . BASE . 'cart/view');
+       exit;
+    
+    
+     
+    }
+
+    public static function finaliserCommande()
+    {
+        $detailPanier = Cart::getDetailPanier();
+      $totalPanier = Cart::getTotal();
+      if(!empty($_SESSION['user']['delivery_address']) && !empty($_SESSION['user']['billing_address']) ) 
+      {
+        include(VIEWS."app/finaliser.php" ) ;
+      }else
+      {
+        header('location:' . BASE . 'commande/formulaire');
+        
+        exit;
+      }
+      
+         
+    }
+
+    public static function ajoutAdresse()
+    {
+        if(!empty($_POST))
+        {
+            $error = [];
+            if(empty($_POST["delivery_address"]))
+            {
+                $error['delivery_address'] = "le champs est obligatoire";
+            }
+            if(empty($_POST['billing_address']))
+            {
+                $error['billing_address'] = "le champs  est obligatoire";
+            }
+
+            if(!$error)
+            {
+                $data = [
+                    'delivery_address' => $_POST['delivery_address'],
+                    'billing_address' => $_POST['billing_address'],
+                    'id_user' => $_SESSION['user']['id_user']
+       
+                ];
+                User::addAddress($data);
+                $_SESSION['user'] = User::findByEmail(['email' => $_SESSION['user']['email']]);
+                $_SESSION['messages']['success'][] = 'L\'adresse a bien été ajouté';
+                header('location:' . BASE);
+                exit();
+            }
+    
+        }
+        include(VIEWS . 'app/ajoutAdresse.php');
+
+    }
+
+    public static function createOrder() 
+    {
+        $purchase = Purchase::addOrder([
+            'id_user'=> $_SESSION['user']['id_user'],
+            'purchase_date'=> date_format(new DateTime(), 'Y-m-d H:i:s'),
+            'total'=> Cart::getTotal(),
+        ]);
+        $panier = $_SESSION['panier'];
+        foreach ($panier as $id => $quantity){
+            $buy = Buy::addBuy([
+                'id_purchase' => $purchase, 
+                'id_product' => $id, 
+                'quantity' => $quantity, 
+            ]);
+        }
+
+        unset($_SESSION['panier']);
+        $_SESSION['messages']['success'][] = "Votre commande a bien été reçue";
+        header('location:' . BASE );
+        exit;
+    
+    }
 
 }

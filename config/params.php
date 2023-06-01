@@ -53,4 +53,7 @@ $routes = [
    '/cart/substract' =>['AppController', 'substractCart'],
    '/cart/remove' =>['AppController', 'removeCart'],
    '/cart/delete' =>['AppController', 'deleteCart'],
+   '/commande/finaliser'=>['AppController', 'finaliserCommande'],
+   '/commande/formulaire' =>['AppController', 'ajoutAdresse'],
+   '/commande/pay'=>['AppController', 'createOrder'],
 ];
